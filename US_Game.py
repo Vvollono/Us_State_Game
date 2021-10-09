@@ -8,6 +8,7 @@ image = "blank_states_img.gif"
 screen.addshape(image)
 turtle.shape(image)
 FONT = ("Title ", 10, "bold")
+miss_state = []
 
 
 # Get the coordinates on the screen for place the name of the States
@@ -24,6 +25,14 @@ correct_guess = []
 
 while game_is_on:
     answer_state = screen.textinput(title=f"{count}/50 State Correct", prompt="What's another state's name?").title()
+        if answer_state == "Exit":
+        data1 = data.state.to_list()
+        for i in data1:
+            if i not in correct_guess:
+                miss_state.append(i)
+        learn = pandas.DataFrame(miss_state)
+        learn.to_csv("states_to_learn.csv")
+        game_is_on = False
     for i in data.state:
         if answer_state == i:
             correct_guess.append(answer_state)
